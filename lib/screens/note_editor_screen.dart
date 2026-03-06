@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
-import '../../domain/models/note.dart';
-import '../viewmodels/notes_bloc.dart';
+import '../models/note.dart';
+import '../database/database_helper.dart';
 
 class NoteEditorScreen extends StatefulWidget {
   final Note? note;
@@ -30,19 +29,17 @@ class _NoteEditorScreenState extends State<NoteEditorScreen> {
     super.dispose();
   }
 
-  void _saveNote() {
+  Future<void> _saveNote() async {
     final note = Note(
       id: widget.note?.id ?? const Uuid().v4(),
       title: _titleController.text.isEmpty ? 'Untitled' : _titleController.text,
       content: _contentController.text,
-      plainContent: _contentController.text,
       createdAt: widget.note?.createdAt ?? DateTime.now(),
-      updatedAt: DateTime.now(),
     );
     if (widget.note != null) {
-      context.read<NotesBloc>().add(UpdateNote(note: note));
+      await DatabaseHelper.instance.updateNote(note);
     } else {
-      context.read<NotesBloc>().add(AddNote(note: note));
+      await DatabaseHelper.instance.insertNote(note);
     }
     Navigator.pop(context);
   }
