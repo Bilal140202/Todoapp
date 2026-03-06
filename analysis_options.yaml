@@ -1,0 +1,12 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_final_fields: true
+    unnecessary_breaks: true
+    always_declare_return_types: true
+    always_specify_types: true
+    annotate_overrides: true
+    avoid_empty_else: true
