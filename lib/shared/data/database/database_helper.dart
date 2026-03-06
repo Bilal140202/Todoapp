@@ -1,7 +1,7 @@
 import "package:sqflite/sqflite.dart";
 import "package:path/path.dart";
 import "package:path_provider/path_provider.dart";
-import "../constants/app_constants.dart";
+import "../../core/constants/app_constants.dart";
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
