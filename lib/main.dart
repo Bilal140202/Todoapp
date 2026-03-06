@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +10,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Premium Notes',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      title: 'Notes App',
+      home: Scaffold(
+        appBar: AppBar(title: const Text('My Notes')),
+        body: const Center(child: Text('Hello World!')),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.add),
+        ),
       ),
-      home: const HomeScreen(),
     );
   }
 }
