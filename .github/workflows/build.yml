@@ -1,8 +1,5 @@
-name: Build Premium Notes APK
-on:
-  push:
-    branches: [ main, master ]
-  workflow_dispatch:
+name: Build APK
+on: [push, workflow_dispatch]
 
 jobs:
   build:
@@ -13,17 +10,14 @@ jobs:
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: "3.24.0"
+        flutter-version: "3.16.0"
         channel: "stable"
     
-    - name: Get dependencies
-      run: flutter pub get
+    - run: flutter --version
+    - run: flutter pub get
+    - run: flutter build apk --debug
     
-    - name: Build APK
-      run: flutter build apk --release
-    
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v4
       with:
-        name: premium-notes-apk
-        path: build/app/outputs/flutter-apk/app-release.apk
+        name: app-debug
+        path: build/app/outputs/flutter-apk/app-debug.apk
