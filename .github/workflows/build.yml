@@ -2,14 +2,11 @@ name: Build Premium Notes APK
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v4
     
@@ -22,9 +19,6 @@ jobs:
     - name: Get dependencies
       run: flutter pub get
     
-    - name: Analyze code
-      run: flutter analyze
-    
     - name: Build APK
       run: flutter build apk --release
     
@@ -33,14 +27,3 @@ jobs:
       with:
         name: premium-notes-apk
         path: build/app/outputs/flutter-apk/app-release.apk
-        
-    - name: Rename APK
-      run: |
-        mkdir -p release
-        cp build/app/outputs/flutter-apk/app-release.apk release/PremiumNotes-v1.0.0.apk
-    
-    - name: Upload to Release
-      uses: actions/upload-artifact@v4
-      with:
-        name: premium-notes-release
-        path: release/PremiumNotes-v1.0.0.apk
